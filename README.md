@@ -1,5 +1,5 @@
 # docker-otrs
-OTRS 5 Ticketing System
+# OTRS 5 Ticketing System
 This repository contains the Dockerfiles and other files needed to build, run and maintain an OTRS container in Docker.  I started by forking the repo of Juan Luis Baptiste at https://github.com/juanluisbaptiste/docker-otrs and making changes that fit more to my preferences.
 Requirements:  + MariaDB/MySQL server  + Postfix server  + Docker volumes for storing data:  otrs-Kernel, otrs-backup, otrs-article
 How to Use

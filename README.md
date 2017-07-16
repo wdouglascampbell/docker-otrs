@@ -33,6 +33,8 @@ otrs-setup.env provides for configuring optional settings to customize OTRS:
   * OTRS_NUMBER_GENERATOR  Sets the ticket number generator, possible values are : DateChecksum, Date, AutoIncrement or Random.
   * OTRS_DISABLE_PHONE_HOME  Setting to "yes" will cause OTRS business related features to not contact external services
 
+NOTE:  You will want to chmod +x the files in the script directory before building the container.
+
 Once you have fulfilled the requirements and configured the otrs-setup.env file build the image and create the otrs container using Docker Compose.
 ```
 docker-compose build; docker-compose create

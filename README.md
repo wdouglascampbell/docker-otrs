@@ -7,15 +7,37 @@ This repository contains the Dockerfiles and other files needed to build, run an
   * Postfix server
   * Docker volumes for storing data:  otrs-Kernel, otrs-backup, otrs-article
 
-##How to Use
+## How to Use
 There are four options that define how the container will run when initially started.  They are: none, freshinstall,restore and updateconfig.  These options are set using the FIRSTRUN_ACTION variable in otrs-setup.env.  If no actionhas been specified, the default action will be "none".
+
 "none" indicates that the container will attempt to run using existing configuration files and database.  This would bea good choice to use once you have your container setup and running but want to make sure you don't accidently overwriteyour data in the situation that you need to re-create the container at some later point in time.
+
 "freshinstall" indicates that a fresh "out-of-the-box" installation will be performed wiping any previous OTRS files anddatabase.  Any optional settings configured in otrs-setup.env will also be set.
+
 "restore" indicates that OTRS will be restored from an existing backup.  The backup to be restored is indicated by thevalue of OTRS_BACKUP_DATE in the otrs-setup.env file.  The value will indicate the directory containing the backup filesin the path ${OTRS_ROOT}/backups.  Any optional settings configured in otrs-setup.env will also be set.
+
 "updateconfig" indicates that any optional settings configured in otrs-setup.env will be set during the initial run ofthe container.
-otrs-setup.env provides for configuring optional settings to customize OTRS:• OTRS_HOSTNAME  Sets the container's hostname• OTRS_SYSTEM_ID  Sets the system's ticketing ID.• OTRS_ADMIN_EMAIL  Sets the admin user email.• OTRS_ORGANIZATION  Sets the organization name (ex: MyCompany Ltd.) OTRS_DATABASE  database name.  If it's not set the default of 'otrs' will be used.OTRS_DB_USER  otrs user database username.  If it's not set the default of 'otrs" will be used.• OTRS_DB_PASSWORD  otrs user database password. If it's not set the password will be randomly generated (recommended).• OTRS_ROOT_PASSWORD  root@localhost user password. If it's not set the password will be randomly generated.• OTRS_POSTMASTER_FETCH_TIME  Sets the time interval that OTRS should fetch emails from the configured postmaster accounts.This value is 10 minutes by default. Email fetching can be disabled altogether by setting this variable to 0.• OTRS_LANGUAGE  Set the default language for both agent and customer interfaces (For example, "es" for spanish).• OTRS_TICKET_COUNTER  Sets the starting point for the ticket counter.• OTRS_NUMBER_GENERATOR  Sets the ticket number generator, possible values are : DateChecksum, Date, AutoIncrement or Random.OTRS_DISABLE_PHONE_HOME  Setting to "yes" will cause OTRS business related features to not contact external services
-Once you have fulfilled the requirements and configured the otrs-setup.env file build the image and create the otrs containerusing Docker Compose.
+
+otrs-setup.env provides for configuring optional settings to customize OTRS:
+  * OTRS_HOSTNAME  Sets the container's hostname
+  * OTRS_SYSTEM_ID  Sets the system's ticketing ID.
+  * OTRS_ADMIN_EMAIL  Sets the admin user email.
+  * OTRS_ORGANIZATION  Sets the organization name (ex: MyCompany Ltd.)
+  * OTRS_DATABASE  database name.  If it's not set the default of 'otrs' will be used.
+  * OTRS_DB_USER  otrs user database username.  If it's not set the default of 'otrs" will be used.
+  * OTRS_DB_PASSWORD  otrs user database password. If it's not set the password will be randomly generated (recommended).
+  * OTRS_ROOT_PASSWORD  root@localhost user password. If it's not set the password will be randomly generated.
+  * OTRS_POSTMASTER_FETCH_TIME  Sets the time interval that OTRS should fetch emails from the configured postmaster accounts.This value is 10 minutes by default. Email fetching can be disabled altogether by setting this variable to 0.
+  * OTRS_LANGUAGE  Set the default language for both agent and customer interfaces (For example, "es" for spanish).
+  * OTRS_TICKET_COUNTER  Sets the starting point for the ticket counter.
+  * OTRS_NUMBER_GENERATOR  Sets the ticket number generator, possible values are : DateChecksum, Date, AutoIncrement or Random.
+  * OTRS_DISABLE_PHONE_HOME  Setting to "yes" will cause OTRS business related features to not contact external services
+
+Once you have fulfilled the requirements and configured the otrs-setup.env file build the image and create the otrs container using Docker Compose.
+```bash
 docker-compose build; docker-compose create
+```
+
 You may then start the containe with
 docker start otrs
 Check the logs to see what is happening during container startup.

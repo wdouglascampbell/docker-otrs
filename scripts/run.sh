@@ -90,12 +90,11 @@ if [ -e "${OTRS_ROOT}var/tmp/firsttime" ]; then
 
   elif [ "$FIRSTRUN_ACTION" == "restore" ];then
 
-    print_info "Restoring OTRS backup: \e[42m$OTRS_BACKUP_DATE\e[0m"
+    print_info "Restoring OTRS backup: \e[92m$OTRS_BACKUP_DATE\e[0m"
     restore_backup $OTRS_BACKUP_DATE
 
   elif [ "$FIRSTRUN_ACTION" == "updateconfig" ]; then
 
-    print_info "Updating current installation with otrs-setup.env configured values !!"
     check_host_mount_dir
 
   else
@@ -142,8 +141,8 @@ if [ -e "${OTRS_ROOT}var/tmp/firsttime" ]; then
     fi
 
     # update apache configuration with hostname and server admin email
-    [ ! -z $OTRS_HOSTNAME ] && sed -i -e "s/ServerAdmin.*/ServerAdmin ${OTRS_HOSTNAME}/" /etc/apache2/conf.d/zzz_otrs.conf
-    [ ! -z $OTRS_ADMIN_EMAIL ] && sed -i -e "s/ServerName.*/ServerName ${OTRS_ADMIN_EMAIL}/" /etc/apache2/conf.d/zzz_otrs.conf
+    [ ! -z $OTRS_ADMIN_EMAIL ] && sed -i -e "s/ServerAdmin.*/ServerAdmin ${OTRS_ADMIN_EMAIL}/" /etc/apache2/conf.d/zzz_otrs.conf
+    [ ! -z $OTRS_HOSTNAME ] && sed -i -e "s/ServerName.*/ServerName ${OTRS_HOSTNAME}/" /etc/apache2/conf.d/zzz_otrs.conf
 
   fi
 

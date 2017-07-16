@@ -34,22 +34,34 @@ otrs-setup.env provides for configuring optional settings to customize OTRS:
   * OTRS_DISABLE_PHONE_HOME  Setting to "yes" will cause OTRS business related features to not contact external services
 
 Once you have fulfilled the requirements and configured the otrs-setup.env file build the image and create the otrs container using Docker Compose.
-```bash
+```
 docker-compose build; docker-compose create
 ```
 
-You may then start the containe with
+You may then start the container using:
+```
 docker start otrs
-Check the logs to see what is happening during container startup.
+```
+You may check the logs to see what is happening during container startup:
+```
 docker logs -f otrs
+```
 The OTRS system can be reached at the following addresses:
-Administration Interfacehttp://$OTRS_HOSTNAME
-Customer Interfacehttp://$OTRS_HOSTNAME/customer.pl
-Backups
+#### Administration Interface
+http://$OTRS_HOSTNAME
+#### Customer Interface
+http://$OTRS_HOSTNAME/customer.pl
+
+## Backups
 Create a full backup by running the following from the Docker host system.
+```
 docker exec -it otrs /otrs_backup.sh
+```
 This will create a new directory using the current date and time under inside the container at /var/otrs/backups and store thefiles for the full backup.  Assuming you have used the distributed docker-compose.yml file and have mounted that directory asa host volume then you will have access to the backups files from the docker host server.
-Upgrades
+
+## Upgrades
 After a new version of OTRS is release you can upgrade to the latest release using the following command from the Docker host system.
+```
 docker exec -it otrs /upgrade_otrs.sh version source_checksum
+```
 where version is the latest version and checksum is the md5 checksum shown on the OTRS download page (https://www.otrs.com/download-open-source-help-desk-software-otrs-free/) for the gzip'd source files.

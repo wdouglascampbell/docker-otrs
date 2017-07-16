@@ -1,0 +1,23 @@
+version: '2'
+services:
+  otrs:
+    container_name: otrs
+    image: wdouglascampbell/otrs:latest
+    build: .
+    ports:
+    - "80:80"
+    dns: 172.17.0.1
+    env_file: otrs-setup.env
+    network_mode: bridge
+    volumes:
+    - otrs-backup:/var/otrs/backups
+    - otrs-Kernel:/opt/otrs/Kernel
+    - otrs-article:/opt/otrs/var/article
+
+volumes:
+  otrs-article:
+    external: true
+  otrs-backup:
+    external: true
+  otrs-Kernel:
+    external: true

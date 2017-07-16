@@ -1,8 +1,13 @@
 # docker-otrs
 # OTRS 5 Ticketing System
 This repository contains the Dockerfiles and other files needed to build, run and maintain an OTRS container in Docker.  I started by forking the repo of Juan Luis Baptiste at https://github.com/juanluisbaptiste/docker-otrs and making changes that fit more to my preferences.
-Requirements:  + MariaDB/MySQL server  + Postfix server  + Docker volumes for storing data:  otrs-Kernel, otrs-backup, otrs-article
-How to Use
+
+#### Requirements:
+  * MariaDB/MySQL server
+  * Postfix server
+  * Docker volumes for storing data:  otrs-Kernel, otrs-backup, otrs-article
+
+##How to Use
 There are four options that define how the container will run when initially started.  They are: none, freshinstall,restore and updateconfig.  These options are set using the FIRSTRUN_ACTION variable in otrs-setup.env.  If no actionhas been specified, the default action will be "none".
 "none" indicates that the container will attempt to run using existing configuration files and database.  This would bea good choice to use once you have your container setup and running but want to make sure you don't accidently overwriteyour data in the situation that you need to re-create the container at some later point in time.
 "freshinstall" indicates that a fresh "out-of-the-box" installation will be performed wiping any previous OTRS files anddatabase.  Any optional settings configured in otrs-setup.env will also be set.
